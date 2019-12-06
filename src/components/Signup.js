@@ -15,7 +15,7 @@ const SignUp = () => {
                 onChange={handleInputChange}
                 type="text"
                 name="username"
-                value={inputs.username}
+                value={inputs.username || ""}
                 required
             />
             <label>email</label>
@@ -23,7 +23,7 @@ const SignUp = () => {
                 onChange={handleInputChange}
                 type="text"
                 name="email"
-                value={inputs.email}
+                value={inputs.email || ""}
                 required
             />
             <label>password</label>
@@ -31,7 +31,7 @@ const SignUp = () => {
                 onChange={handleInputChange}
                 type="password"
                 name="password"
-                value={inputs.password}
+                value={inputs.password || ""}
                 required
             />
             <button>Sign Up</button>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Header } from './Header';
 import { socket } from './Header'
 import Login from "./components/Login"
-import { Switch, Route} from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import SignUp from './components/Signup';
 
 
@@ -39,12 +39,12 @@ class App extends Component {
   render() {
     return (
       <div>
-       <Header />
-      <Switch>
-      <Route exact path='/login' component={Login}></Route>
-      <Route exact path='/signup' component={SignUp}></Route>
-      
-      </Switch>
+        <Header />
+        <Switch>
+          <Route exact path='/login' component={Login}></Route>
+          <Route exact path='/signup' component={SignUp}></Route>
+
+        </Switch>
 
       </div>
     );

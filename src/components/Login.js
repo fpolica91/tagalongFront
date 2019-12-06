@@ -23,13 +23,13 @@ const Login = () => {
             <input
                 name="username"
                 onChange={handleInputChange}
-                value={inputs.username}
+                value={inputs.username || ""}
                 required
             />
             <label>password</label>
             <input
                 name="password"
-                value={inputs.password}
+                value={inputs.password || ""}
                 onChange={handleInputChange}
                 required
             />
