@@ -5,7 +5,6 @@ import api from "../services/api"
 const Login = () => {
 
     const [user, setCurrentUser] = useState([])
-
     const handleLogin = () => {
         api.post('/login', inputs)
             .then((response) => {
@@ -16,7 +15,6 @@ const Login = () => {
             })
             .catch(err => console.log(`and unexpected error occurred ${err}`))
     }
-
 
     const { inputs, handleInputChange, handleSubmit, setInputs } = useForm(handleLogin)
     return (
