@@ -5,6 +5,9 @@ import Login from "./components/Login"
 import { Switch, Route} from 'react-router-dom'
 import SignUp from './components/Signup';
 
+// REACT CONTEXT
+const thedata = React.createContext();
+export const dataConsumer = thedata.Consumer;
 
 
 class App extends Component {

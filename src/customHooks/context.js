@@ -3,10 +3,13 @@ import React, { Component } from 'react';
 
 const Context = React.createContext()
 
-class Provider extends React.Component {
+class Provider extends Component {
     render() {
+        return(
         <Context.Provider>
             {this.props.children}
-        </Context.Provider>
+        </Context.Provider>)
     }
 }
+
+export default Provider

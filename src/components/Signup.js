@@ -6,7 +6,15 @@ const SignUp = () => {
 
     const submitSignUp = () => {
         api.post('/newUser', inputs)
+        .then((theResponse) => {
+            console.log("THE DATA")
+            console.log(theResponse)
+        }).then(() => {
+            setInputs(inputs => ({ ...inputs, username: "", password: "" }))
+        })
+        .catch(err => console.log(`an unexpected error occurred ${err}`))
     }
+
     const { inputs, handleInputChange, handleSubmit, setInputs } = useForm(submitSignUp)
     return (
         <form onSubmit={handleSubmit}>
@@ -15,7 +23,7 @@ const SignUp = () => {
                 onChange={handleInputChange}
                 type="text"
                 name="username"
-                value={inputs.username}
+                value={inputs.username || ""}
                 required
             />
             <label>email</label>
@@ -23,7 +31,7 @@ const SignUp = () => {
                 onChange={handleInputChange}
                 type="text"
                 name="email"
-                value={inputs.email}
+                value={inputs.email || ""}
                 required
             />
             <label>password</label>
@@ -31,7 +39,7 @@ const SignUp = () => {
                 onChange={handleInputChange}
                 type="password"
                 name="password"
-                value={inputs.password}
+                value={inputs.password || ""}
                 required
             />
             <button>Sign Up</button>
