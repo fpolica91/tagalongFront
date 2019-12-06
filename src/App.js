@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Header } from './Header';
 import { socket } from './Header'
 import Login from "./components/Login"
+import SignUp from './components/Signup';
 
 
 
@@ -37,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <div>
-
+        <SignUp />
         <Header />
         <Login />
       </div>
