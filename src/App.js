@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Header } from './Header';
 import { socket } from './Header'
+import Login from "./components/Login"
 
 
 
@@ -36,10 +37,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        {this.state.events.map(event => {
-          return <p key={event._id} >{event.name}</p>
-        })}
+
         <Header />
+        <Login />
       </div>
     );
   }

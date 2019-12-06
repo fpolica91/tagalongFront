@@ -4,7 +4,6 @@ import io from 'socket.io-client'
 
 var socket
 class Header extends Component {
-
     constructor() {
         super()
         this.state = {
