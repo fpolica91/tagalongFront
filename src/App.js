@@ -7,7 +7,7 @@ import Login from "./components/Login"
 import { Switch, Route } from 'react-router-dom'
 import SignUp from './components/Signup';
 
-const socket = io('http://localhost:5000')
+//const socket = io('http://localhost:5000')
 
 const App = () => {
 
