@@ -6,7 +6,15 @@ const SignUp = () => {
 
     const submitSignUp = () => {
         api.post('/newUser', inputs)
+        .then((theResponse) => {
+            console.log("THE DATA")
+            console.log(theResponse)
+        }).then(() => {
+            setInputs(inputs => ({ ...inputs, username: "", password: "" }))
+        })
+        .catch(err => console.log(`an unexpected error occurred ${err}`))
     }
+
     const { inputs, handleInputChange, handleSubmit, setInputs } = useForm(submitSignUp)
     return (
         <form onSubmit={handleSubmit}>

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 
 const useForm = (callback) => {
-    const [inputs, setInputs] = useState([
+    const [inputs, setInputs] = useState(
         { username: "" }, { password: "" }
-    ])
+    )
 
     const handleSubmit = (e) => {
         e.preventDefault()
