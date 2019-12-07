@@ -3,9 +3,9 @@ import { Context } from './customHooks/context'
 // import * as io from 'socket.io-client'
 // import { Header } from './Header';
 // import { socket } from './Header'
-// import Login from "./components/Login"
-// import { Switch, Route } from 'react-router-dom'
-// import SignUp from './components/Signup';
+import Login from "./components/Login"
+import { Switch, Route } from 'react-router-dom'
+import SignUp from './components/Signup';
 
 // const socket = io('http://localhost:5000')
 
