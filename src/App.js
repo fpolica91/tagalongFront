@@ -3,9 +3,9 @@ import { Context } from './customHooks/context'
 import * as io from 'socket.io-client'
 // import { Header } from './Header';
 // import { socket } from './Header'
-// import Login from "./components/Login"
-// import { Switch, Route } from 'react-router-dom'
-// import SignUp from './components/Signup';
+import Login from "./components/Login"
+import { Switch, Route } from 'react-router-dom'
+import SignUp from './components/Signup';
 
 const socket = io('http://localhost:5000')
 
@@ -28,7 +28,16 @@ const App = () => {
   return (
     <Context.Consumer>
       {(context) => {
-        return <p>users</p>
+        return (
+                <div>
+                  <Switch>
+                    <Route exact path='/login' component={Login}></Route>
+                    <Route exact path='/signup' component={SignUp}></Route>
+          
+                  </Switch>
+          
+                </div>
+              );
       }}
 
     </Context.Consumer>
