@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect } from 'react';
 import * as io from "socket.io-client"
 import PropTypes from 'prop-types';
+import useForm from './customHooks';
+import api from '../services/api';
 
 const Context = React.createContext()
 
@@ -11,13 +13,37 @@ const Provider = (props) => {
     const {
         users: initalUsers,
         events: initialEvents,
-        count: initiaCount = 0
+        count: initiaCount = 0,
+        currentUser: initialCurrentUser
     } = props
+
+    const [currentUser, setCurrentUser] = useState(initialCurrentUser)
+
+    const handler = (data) => {
+        if (data === "login") {
+            api.post('/login', inputs).then((response) => {
+                console.log(response.data)
+                setCurrentUser(response.data)
+            })
+                .then(() => {
+                    setInputs(inputs => ({ ...inputs, username: "", password: "" }))
+                })
+                .catch(err => console.log(`an unexpected error occurred ${err}`))
+
+        }
+
+    }
+
+
+
+
+    const { inputs, handleInputChange, handleSubmit, setInputs } = useForm(handler)
 
 
     const [users, setUsers] = useState(initalUsers)
     const [events, setEvents] = useState(initialEvents)
     const [count, setCount] = useState(initiaCount)
+
 
     useEffect(() => {
         socket.emit('init_communication')
@@ -39,19 +65,27 @@ const Provider = (props) => {
         setUsers(users)
     }
 
+
+
+
+
     const reload = () => socket.emit('init_communication')
 
     const data = {
         users,
+        currentUser,
         events,
         count,
-        increment
+        increment,
+        handleInputChange,
+        handleSubmit,
+        setInputs,
+        inputs
     }
 
 
     return <Context.Provider
         value={data}
-        increment={increment}
     >{props.children}</Context.Provider>
 
 }
@@ -89,5 +123,5 @@ Provider.propTypes = {
 
 Provider.defaultProps = {
     users: [],
-    events: []
+    events: [],
 };

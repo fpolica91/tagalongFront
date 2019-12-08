@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 
 
 const useForm = (callback) => {
-    const [inputs, setInputs] = useState(
-        { username: "" }, { password: "" }
-    )
+    const [inputs, setInputs] = useState({})
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e, data) => {
+
         e.preventDefault()
-        callback()
+        callback(data)
     }
 
     const handleInputChange = (event) => {

@@ -6,6 +6,7 @@ import { Context } from './customHooks/context'
 import Login from "./components/Login"
 import { Switch, Route } from 'react-router-dom'
 import SignUp from './components/Signup';
+import UpdateUser from './components/update.user';
 
 // const socket = io('http://localhost:5000')
 
@@ -46,6 +47,15 @@ const App = () => {
     <div>
       <p>Current cout is {count}</p>
       <button onClick={() => increment("vaca")} >  Increment </button>
+      <Switch>
+        <Route exact path='/login' component={Login}></Route>
+        <Route exact path='/signup' component={SignUp}></Route>
+        <Route
+          exact path="/update/:id"
+          component={UpdateUser}
+        />
+      </Switch>
+
     </div>
   )
 

@@ -1,28 +1,18 @@
-import React, { useState } from 'react';
-import useForm from '../customHooks/customHooks';
-import api from "../services/api"
+import React, { useContext } from 'react';
+import { Context } from "../customHooks/context"
+
 
 const Login = () => {
+    const loginContext = useContext(Context)
+    const { inputs, handleInputChange, handleSubmit, setInputs } = loginContext
 
-    const [user, setCurrentUser] = useState([])
-    const handleLogin = () => {
-        api.post('/login', inputs).then((response) => {
-            setCurrentUser(response.data)
-        })
-            .then(() => {
-                setInputs(inputs => ({ ...inputs, username: "", password: "" }))
-            })
-            .catch(err => console.log(`an unexpected error occurred ${err}`))
-    }
-
-    const { inputs, handleInputChange, handleSubmit, setInputs } = useForm(handleLogin)
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e, "login")}>
             <label>username</label>
             <input
                 name="username"
-                onChange={handleInputChange}
+                onChange={(e) => handleInputChange(e)}
                 value={inputs.username || ""}
 
             />
