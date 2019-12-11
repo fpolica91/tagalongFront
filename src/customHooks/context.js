@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as io from "socket.io-client"
 import PropTypes from 'prop-types';
 import useForm from './customHooks';
@@ -21,20 +21,16 @@ const Provider = (props) => {
 
     const handler = (data) => {
         if (data === "login") {
-            api.post('/login', inputs).then((response) => {
-                console.log(response.data)
-                setCurrentUser(response.data)
-            })
+            api.post('/login', inputs, { withCredentials: true })
+                .then((response) => {
+                    setCurrentUser(response.data.user)
+                })
                 .then(() => {
                     setInputs(inputs => ({ ...inputs, username: "", password: "" }))
                 })
                 .catch(err => console.log(`an unexpected error occurred ${err}`))
-
         }
-
     }
-
-
 
 
     const { inputs, handleInputChange, handleSubmit, setInputs } = useForm(handler)
@@ -45,13 +41,21 @@ const Provider = (props) => {
     const [count, setCount] = useState(initiaCount)
 
 
+    // THIS IS THE SAME AS CDM
     useEffect(() => {
         socket.emit('init_communication')
         socket.on('users', get_users)
         socket.on('events', getEvents)
+        api.get('/loggedin', { withCredentials: true })
+            .then(response => {
+                console.log(response.data)
+                setCurrentUser(response.data)
+            })
         socket.on('reload', reload)
-
     }, [])
+
+
+
 
     const increment = (arg) => {
         console.log(arg)
@@ -69,18 +73,29 @@ const Provider = (props) => {
 
 
 
+
+
+
+
+
+
     const reload = () => socket.emit('init_communication')
+
+
+
+
+
 
     const data = {
         users,
-        currentUser,
         events,
         count,
         increment,
         handleInputChange,
         handleSubmit,
         setInputs,
-        inputs
+        inputs,
+        currentUser
     }
 
 

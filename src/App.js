@@ -4,9 +4,10 @@ import { Context } from './customHooks/context'
 // import { Header } from './Header';
 // import { socket } from './Header'
 import Login from "./components/Login"
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Link } from 'react-router-dom'
 import SignUp from './components/Signup';
 import UpdateUser from './components/update.user';
+import RequireAuthentication from './services/route.protection';
 
 // const socket = io('http://localhost:5000')
 
@@ -49,13 +50,19 @@ const App = () => {
       <button onClick={() => increment("vaca")} >  Increment </button>
       <Switch>
         <Route exact path='/login' component={Login}></Route>
-        <Route exact path='/signup' component={SignUp}></Route>
+        <Route
+          exact path='/signup'
+          component={SignUp}
+        />
+
         <Route
           exact path="/update/:id"
           component={UpdateUser}
         />
       </Switch>
 
+
+      <Link to="/signup" >SignUp  </Link>
     </div>
   )
 
