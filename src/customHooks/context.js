@@ -30,6 +30,21 @@ const Provider = (props) => {
                 })
                 .catch(err => console.log(`an unexpected error occurred ${err}`))
         }
+
+        else if (data === "event") {
+            console.log(inputs.name)
+            console.log(inputs.category)
+            console.log(inputs.public)
+            const _event = {
+                host: currentUser._id,
+                name: inputs.name,
+                category: inputs.category,
+                public: inputs.public
+            }
+            console.log(_event)
+
+            api.post('/event', _event)
+        }
     }
 
 
@@ -87,6 +102,7 @@ const Provider = (props) => {
 
 
     const data = {
+        currentUser,
         users,
         events,
         count,
@@ -95,7 +111,6 @@ const Provider = (props) => {
         handleSubmit,
         setInputs,
         inputs,
-        currentUser
     }
 
 

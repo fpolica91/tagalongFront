@@ -8,6 +8,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 import SignUp from './components/Signup';
 import UpdateUser from './components/update.user';
 import RequireAuthentication from './services/route.protection';
+import CreateEvent from './components/create.event';
 
 // const socket = io('http://localhost:5000')
 
@@ -54,15 +55,16 @@ const App = () => {
           exact path='/signup'
           component={SignUp}
         />
-
         <Route
-          exact path="/update/:id"
-          component={UpdateUser}
+          exact path="/createEvent/:id"
+          // component={props => < RequireAuthentication Component={{...props} CreateEvent} />}
+          component={CreateEvent}
         />
+
       </Switch>
 
+      <Link to="/createEvent/5ded46e23c53f014c9bfd425">Create Event</Link>
 
-      <Link to="/signup" >SignUp  </Link>
     </div>
   )
 
