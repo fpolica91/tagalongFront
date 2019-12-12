@@ -6,7 +6,7 @@ const Login = () => {
 
     const [user, setCurrentUser] = useState([])
     const handleLogin = () => {
-        api.post('/login', inputs).then((response) => {
+        api.post('/login', inputs , {withCredentials: true}).then((response) => {
             setCurrentUser(response.data)
         })
             .then(() => {

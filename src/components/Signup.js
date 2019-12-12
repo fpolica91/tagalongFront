@@ -5,7 +5,7 @@ import api from '../services/api';
 const SignUp = () => {
 
     const submitSignUp = () => {
-        api.post('/newUser', inputs)
+        api.post('/newUser', inputs , {withCredentials: true})
         .then((theResponse) => {
             console.log("THE DATA")
             console.log(theResponse)

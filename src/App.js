@@ -1,29 +1,31 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from './customHooks/context'
-import * as io from 'socket.io-client'
+// import * as io from 'socket.io-client'
 // import { Header } from './Header';
 // import { socket } from './Header'
 import Login from "./components/Login"
 import { Switch, Route } from 'react-router-dom'
 import SignUp from './components/Signup';
 
-//const socket = io('http://localhost:5000')
+// const socket = io('http://localhost:5000')
+
+// const App = () => {
+
+//   // const [_users, setUsers] = useState()
+
+//   // const theme = data.users.push(_users)
+
+//   // useEffect(() => {
+//   //   socket.emit('init_communication')
+//   //   socket.on('users', get_users)
+//   // }, [])
+
+//   // const get_users = (users) => {
+//   //   setUsers(users)
+
+//   // }
 
 const App = () => {
-
-  // const [_users, setUsers] = useState()
-
-  // const theme = data.users.push(_users)
-
-  // useEffect(() => {
-  //   socket.emit('init_communication')
-  //   socket.on('users', get_users)
-  // }, [])
-
-  // const get_users = (users) => {
-  //   setUsers(users)
-
-  // }
 
   return (
     <Context.Consumer>
@@ -37,15 +39,28 @@ const App = () => {
                   </Switch>
           
                 </div>
+    
               );
       }}
-
     </Context.Consumer>
-  )
-
-}
+  )}
 
 export default App;
+
+// const App = () => {
+
+//   const dataContext = useContext(Context)
+//   const { count, increment } = dataContext
+
+
+//   return (
+//     <div>
+//       <p>Current cout is {count}</p>
+//       <button onClick={() => increment("vaca")} >  Increment </button>
+//     </div>
+//   )
+
+// }
 
 // class App extends Component {
 //   state = {
