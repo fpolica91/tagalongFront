@@ -5,11 +5,12 @@ import useForm from './customHooks';
 import api from '../services/api';
 
 const Context = React.createContext()
-const testContext = React.createContext()
+
 
 const socket = io('http://localhost:5000')
 
 const Provider = (props) => {
+
 
     const {
         users: initalUsers,
@@ -67,10 +68,6 @@ const Provider = (props) => {
             })
         socket.on('reload', reload)
     }, [])
-
-
-
-
 
 
     const getEvents = (events) => {

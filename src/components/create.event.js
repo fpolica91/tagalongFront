@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Context } from "../customHooks/context"
 
-const CreateEvent = () => {
+const CreateEvent = (props) => {
+    console.log(props.history)
     const userEventContext = useContext(Context)
     const { currentUser, inputs, setInputs, handleInputChange, handleSubmit } = userEventContext
     return (
