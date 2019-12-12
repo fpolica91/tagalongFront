@@ -5,6 +5,7 @@ import useForm from './customHooks';
 import api from '../services/api';
 
 const Context = React.createContext()
+const testContext = React.createContext()
 
 const socket = io('http://localhost:5000')
 
@@ -13,12 +14,10 @@ const Provider = (props) => {
     const {
         users: initalUsers,
         events: initialEvents,
-        count: initiaCount = 0,
         currentUser: initialCurrentUser
     } = props
 
     const [currentUser, setCurrentUser] = useState(initialCurrentUser)
-
     const handler = (data) => {
         if (data === "login") {
             api.post('/login', inputs, { withCredentials: true })
@@ -53,7 +52,7 @@ const Provider = (props) => {
 
     const [users, setUsers] = useState(initalUsers)
     const [events, setEvents] = useState(initialEvents)
-    const [count, setCount] = useState(initiaCount)
+
 
 
     // THIS IS THE SAME AS CDM
@@ -72,10 +71,7 @@ const Provider = (props) => {
 
 
 
-    const increment = (arg) => {
-        console.log(arg)
-        setCount(count + 1)
-    }
+
 
     const getEvents = (events) => {
         setEvents(events)
@@ -105,8 +101,6 @@ const Provider = (props) => {
         currentUser,
         users,
         events,
-        count,
-        increment,
         handleInputChange,
         handleSubmit,
         setInputs,

@@ -13,6 +13,7 @@ const CreateEvent = () => {
             />
             <label>Category</label>
             <select onChange={e => handleInputChange(e)} value={inputs.category || ""} name="category" >
+                <option  >Category</option>
                 <option value="Outdoors" >Outdoors</option>
                 <option value="Food">    Food</option>
                 <option value="Music">Music</option>
