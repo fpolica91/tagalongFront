@@ -1,38 +1,75 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as io from "socket.io-client"
 import PropTypes from 'prop-types';
-import api from '../services/api'
+import useForm from './customHooks';
+import api from '../services/api';
 
 const Context = React.createContext()
+
 
 const socket = io('http://localhost:5000')
 
 const Provider = (props) => {
 
+
     const {
         users: initalUsers,
         events: initialEvents,
-        count: initiaCount = 0
+        currentUser: initialCurrentUser
     } = props
+
+    const [currentUser, setCurrentUser] = useState(initialCurrentUser)
+    
+    const handler = (data) => {
+        if (data === "login") {
+            api.post('/login', inputs, { withCredentials: true })
+                .then((response) => {
+                    setCurrentUser(response.data.user)
+                })
+                .then(() => {
+                    setInputs(inputs => ({ ...inputs, username: "", password: "" }))
+                })
+                .catch(err => console.log(`an unexpected error occurred ${err}`))
+        }
+
+        else if (data === "event") {
+            console.log(inputs.name)
+            console.log(inputs.category)
+            console.log(inputs.public)
+            const _event = {
+                host: currentUser._id,
+                name: inputs.name,
+                category: inputs.category,
+                public: inputs.public
+            }
+            console.log(_event)
+
+            api.post('/event', _event)
+        }
+    }
+
+
+    const { inputs, handleInputChange, handleSubmit, setInputs } = useForm(handler)
 
 
     const [users, setUsers] = useState(initalUsers)
     const [events, setEvents] = useState(initialEvents)
-    const [count, setCount] = useState(initiaCount)
 
+
+
+    // THIS IS THE SAME AS CDM
     useEffect(() => {
         socket.emit('init_communication')
         socket.on('users', get_users)
         socket.on('events', getEvents)
+        api.get('/loggedin', { withCredentials: true })
+            .then(response => {
+                console.log(response.data)
+                setCurrentUser(response.data)
+            })
         socket.on('reload', reload)
-
-        api.get('/loggedin', {withCredentials: true}).then(theData => console.log(theData))
     }, [])
 
-    const increment = (arg) => {
-        console.log(arg)
-        setCount(count + 1)
-    }
 
     const getEvents = (events) => {
         setEvents(events)
@@ -41,19 +78,36 @@ const Provider = (props) => {
         setUsers(users)
     }
 
+
+
+
+
+
+
+
+
+
+
     const reload = () => socket.emit('init_communication')
 
+
+
+
+
+
     const data = {
+        currentUser,
         users,
         events,
-        count,
-        increment
+        handleInputChange,
+        handleSubmit,
+        setInputs,
+        inputs,
     }
 
 
     return <Context.Provider
         value={data}
-        increment={increment}
     >{props.children}</Context.Provider>
 
 }
@@ -91,5 +145,5 @@ Provider.propTypes = {
 
 Provider.defaultProps = {
     users: [],
-    events: []
+    events: [],
 };
