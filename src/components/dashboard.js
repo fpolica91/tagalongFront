@@ -15,7 +15,7 @@ const Dashboard = (props) => {
         {events.length && events.map(eachEvent => {
             return <div key={eachEvent._id}>
             {eachEvent.name}
-            {eachEvent.host.username !== currentUser.username && <button onClick={e => tagRequest(e, eachEvent._id, currentUser)}>THIS IS FOR JESUS</button>}
+            {eachEvent.host.username !== currentUser.username && <button onClick={e => tagRequest(e, eachEvent._id, currentUser)}>JOIN</button>}
             
             </div>
         })}

@@ -19,10 +19,10 @@ const Provider = (props) => {
     } = props
 
     const [currentUser, setCurrentUser] = useState(initialCurrentUser)
-    
-    const handler = (data) => {
-        if (data === "login") {
-            api.post('/login', inputs, { withCredentials: true })
+
+
+    const logIn = () => {
+        api.post('/login', inputs, { withCredentials: true })
                 .then((response) => {
                     setCurrentUser(response.data.user)
                 })
@@ -30,47 +30,56 @@ const Provider = (props) => {
                     setInputs(inputs => ({ ...inputs, username: "", password: "" }))
                 })
                 .catch(err => console.log(`an unexpected error occurred ${err}`))
+    }
+
+    const createEvent = () => {
+        console.log(inputs.name)
+        console.log(inputs.category)
+        console.log(inputs.public)
+        const _event = {
+            host: currentUser._id,
+            name: inputs.name,
+            category: inputs.category,
+            public: inputs.public
         }
-        else if (data === "logout"){
-            api.delete('/logout', { withCredentials: true })
-            .then(() => { 
-                setCurrentUser(null)
-                props.history.push('/')})
+        console.log(_event)
+
+        api.post('/event', _event)
+    }
+
+    const createNewCar = () => {
+
+        const data = {
+            userId: currentUser._id,
+            model: inputs.carmodel,
+            seats: inputs.seats
+
         }
-
-        else if (data === "event") {
-            console.log(inputs.name)
-            console.log(inputs.category)
-            console.log(inputs.public)
-            const _event = {
-                host: currentUser._id,
-                name: inputs.name,
-                category: inputs.category,
-                public: inputs.public
-            }
-            console.log(_event)
-
-            api.post('/event', _event)
+        api.post('/newCar', data , {withCredentials: true})
+        .then((theResponse) => {
+            console.log("THE DATA")
+            console.log(theResponse)
+            setInputs(inputs => ({ ...inputs, carmodel: "", seats: 0}))
+        })
+        .catch(err => console.log(`an unexpected error occurred ${err}`))
+    }
+    
+    const handler = (data) => {
+        switch(data){
+            case "login":
+                logIn();
+                break;
+            case "event":
+                createEvent();
+                break;
+            case 'createNewCar':
+                createNewCar();
+                break;
+            default:
+                console.log("NO VALID")
+                break;
         }
-
-        else if (data === 'createNewCar') {
-            console.log("CREATING NEW CAR")   
-  
-            const data = {
-                userId: currentUser._id,
-                model: inputs.carmodel,
-                seats: inputs.seats
-
-            }
-            api.post('/newCar', data , {withCredentials: true})
-            .then((theResponse) => {
-                console.log("THE DATA")
-                console.log(theResponse)
-                setInputs(inputs => ({ ...inputs, carmodel: "", seats: 0}))
-            })
-            .catch(err => console.log(`an unexpected error occurred ${err}`))
-            }
-            }
+    }
         
 
 
@@ -114,21 +123,7 @@ const Provider = (props) => {
         setCurrentUser(null)
     }
 
-
-
-
-
-
-
-
-
-
     const reload = () => socket.emit('init_communication')
-
-
-
-
-
 
     const data = {
         currentUser,
@@ -150,29 +145,6 @@ const Provider = (props) => {
 }
 
 
-
-// class Provider extends React.Component {
-//     state = {
-//         users: [],
-//     }
-
-
-
-
-//     render() {
-//         console.log('these are the users', this.state.users)
-//         return (
-//             <Context.Provider value={{
-//                 ...this.state
-//             }} >
-//                 {this.props.children}
-//             </Context.Provider>
-//         )
-//     }
-// }
-
-
-
 export { Context, Provider }
 
 Provider.propTypes = {
@@ -184,3 +156,66 @@ Provider.defaultProps = {
     users: [],
     events: [],
 };
+
+// OLD WAY HANDLER
+// const handler = (data) => {
+//     if (data === "login") {
+//         api.post('/login', inputs, { withCredentials: true })
+//             .then((response) => {
+//                 setCurrentUser(response.data.user)
+//             })
+//             .then(() => {
+//                 setInputs(inputs => ({ ...inputs, username: "", password: "" }))
+//             })
+//             .catch(err => console.log(`an unexpected error occurred ${err}`))
+//     }
+//     else if (data === "logout"){
+//         api.delete('/logout', { withCredentials: true })
+//         .then(() => { 
+//             setCurrentUser(null)
+//             props.history.push('/')})
+//     }
+
+//     else if (data === "event") {
+//         console.log(inputs.name)
+//         console.log(inputs.category)
+//         console.log(inputs.public)
+//         const _event = {
+//             host: currentUser._id,
+//             name: inputs.name,
+//             category: inputs.category,
+//             public: inputs.public
+//         }
+//         console.log(_event)
+
+//         api.post('/event', _event)
+//     }
+
+//     else if (data === 'createNewCar') {
+//         console.log("CREATING NEW CAR")   
+
+//         const data = {
+//             userId: currentUser._id,
+//             model: inputs.carmodel,
+//             seats: inputs.seats
+
+//         }
+//         api.post('/newCar', data , {withCredentials: true})
+//         .then((theResponse) => {
+//             console.log("THE DATA")
+//             console.log(theResponse)
+//             setInputs(inputs => ({ ...inputs, carmodel: "", seats: 0}))
+//         })
+//         .catch(err => console.log(`an unexpected error occurred ${err}`))
+//         }
+//         }
+    
+
+
+    //LOGOUT INSIDE THE SWITCH STATEMENT
+    // const logOut = () => {
+    //     api.delete('/logout', { withCredentials: true })
+    //     .then(() => { 
+    //         setCurrentUser(null)
+    //     })
+    // }

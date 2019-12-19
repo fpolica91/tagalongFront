@@ -9,7 +9,7 @@ const CreateCar = (props) => {
     const {currentUser} = newCarContext
 
 
-    const { inputs, handleInputChange, handleSubmit, setInputs } = newCarContext
+    const { inputs, handleInputChange, handleSubmit } = newCarContext
     console.log(currentUser)
 
     return(
