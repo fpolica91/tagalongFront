@@ -10,8 +10,8 @@ const Context = React.createContext()
 const socket = io('http://localhost:5000')
 
 const Provider = (props) => {
-
-
+    console.log("PROVIDER PROPS")
+    console.log(props)
     const {
         users: initalUsers,
         events: initialEvents,
@@ -31,6 +31,12 @@ const Provider = (props) => {
                 })
                 .catch(err => console.log(`an unexpected error occurred ${err}`))
         }
+        else if (data === "logout"){
+            api.delete('/logout', { withCredentials: true })
+            .then(() => { 
+                setCurrentUser(null)
+                props.history.push('/')})
+        }
 
         else if (data === "event") {
             console.log(inputs.name)
@@ -46,7 +52,26 @@ const Provider = (props) => {
 
             api.post('/event', _event)
         }
-    }
+
+        else if (data === 'createNewCar') {
+            console.log("CREATING NEW CAR")   
+  
+            const data = {
+                userId: currentUser._id,
+                model: inputs.carmodel,
+                seats: inputs.seats
+
+            }
+            api.post('/newCar', data , {withCredentials: true})
+            .then((theResponse) => {
+                console.log("THE DATA")
+                console.log(theResponse)
+                setInputs(inputs => ({ ...inputs, carmodel: "", seats: 0}))
+            })
+            .catch(err => console.log(`an unexpected error occurred ${err}`))
+            }
+            }
+        
 
 
     const { inputs, handleInputChange, handleSubmit, setInputs } = useForm(handler)
@@ -78,6 +103,16 @@ const Provider = (props) => {
         setUsers(users)
     }
 
+    const tagRequest = (e, eventId, theUser) => {
+        e.preventDefault();
+        console.log("HEY I WORK")
+        console.log(eventId)
+        console.log(theUser)
+    }
+
+    const logOut = () => {
+        setCurrentUser(null)
+    }
 
 
 
@@ -103,6 +138,8 @@ const Provider = (props) => {
         handleSubmit,
         setInputs,
         inputs,
+        tagRequest,
+        logOut
     }
 
 

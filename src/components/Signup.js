@@ -10,7 +10,7 @@ const SignUp = () => {
             console.log("THE DATA")
             console.log(theResponse)
         }).then(() => {
-            setInputs(inputs => ({ ...inputs, username: "", password: "" }))
+            setInputs(inputs => ({ ...inputs, username: "", password: "", email: "" }))
         })
         .catch(err => console.log(`an unexpected error occurred ${err}`))
     }

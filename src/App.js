@@ -8,7 +8,8 @@ import UpdateUser from './components/update.user';
 import CreateEvent from './components/create.event';
 const Profile = lazy(() => import('./components/user.profile'))
 const Links = lazy(() => import('./components/link.routes'))
-
+const Dashboard = lazy(() => import('./components/dashboard'))
+const createCar = lazy(() => import('./components/createCarTest'))
 
 const App = () => {
   const dataContext = useContext(Context)
@@ -22,6 +23,8 @@ const App = () => {
           <Route exact path='/signup' component={SignUp} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route exact path='/update/:id' component={UpdateUser} />
+          <Route exact path='/dashboard' component={Dashboard}/>
+          <Route exact path='/newcar' component={createCar}/> 
           <Route exact path="/createEvent/:id"
             // this doesnt work with the form
             // component={props => < RequireAuthentication Component={{...props} CreateEvent} />}

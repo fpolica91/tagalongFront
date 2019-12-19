@@ -5,6 +5,7 @@ const CreateEvent = (props) => {
     console.log(props.history)
     const userEventContext = useContext(Context)
     const { currentUser, inputs, setInputs, handleInputChange, handleSubmit } = userEventContext
+    
     return (
         <form onSubmit={e => handleSubmit(e, "event")}>
             <input

@@ -13,10 +13,11 @@ const Links = (props) => {
         console.log(history)
         if (history) history.push('/login')
     }
+    
     return (
         <div>
             <Suspense fallback={<div>...loading</div>}>
-                <NavLink to="/login">Login</NavLink>
+               {currentUser ? null : <NavLink to="/login">Login</NavLink> }
                 <br />
                 {currentUser ?
                     <NavLink to={`/profile/${currentUser._id}`}>Profile</NavLink>

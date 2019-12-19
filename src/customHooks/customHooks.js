@@ -5,7 +5,6 @@ const useForm = (callback) => {
     const [inputs, setInputs] = useState({})
 
     const handleSubmit = (e, data) => {
-
         e.preventDefault()
         callback(data)
     }

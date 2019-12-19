@@ -1,13 +1,20 @@
 import React, { useContext } from 'react';
 import { Context } from "../customHooks/context"
+import { Redirect } from 'react-router-dom';
 
 
-const Login = () => {
+const Login = (props) => {
     const loginContext = useContext(Context)
-    const { inputs, handleInputChange, handleSubmit, setInputs } = loginContext
+    const {currentUser, inputs, handleInputChange, handleSubmit, setInputs } = loginContext
 
+    const redirectToDashboard = () => {
+        const { history } = props
+        if (history) history.push('/dashboard')
+    }
 
     return (
+        <div>
+    {currentUser ? redirectToDashboard() : 
         <form onSubmit={(e) => handleSubmit(e, "login")}>
             <label>username</label>
             <input
@@ -25,6 +32,8 @@ const Login = () => {
             />
             <button>Login</button>
         </form>
+    }
+    </div>
     )
 
 }

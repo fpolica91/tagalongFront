@@ -6,23 +6,29 @@ import api from '../services/api'
 
 const Profile = (props) => {
     const userContext = useContext(Context)
-
-    const { currentUser, events, logOutUser } = userContext
+    console.log(userContext)
+    const { currentUser, events, handleSubmit, logOut } = userContext
 
     // THIS GIVES YOU THE EVENTS FOR THE CURRENT USER
     const userEvents = currentUser && events.filter(event => event.host._id === currentUser._id)
 
-    const handleLogout = () => {
+    // OLD WAY TO DEAL WITH LOGOUT
+    const handleLogout = (e) => {
+        e.preventDefault();
         api.delete('/logout', { withCredentials: true })
-            .then(() => props.history.push('/login'))
+            .then(() => { 
+                logOut()
+                props.history.push('/login')})
     }
 
     console.log(userEvents, "these are the current user  events")
+    console.log(currentUser)
     if (currentUser) {
         return (
             <div className='profile' >
                 Welcome {currentUser.username}
-                <button onClick={handleLogout}>log out</button>
+                <button onClick={e => handleLogout(e)}>log out</button>
+                <Link to ='/newcar'>Create new Car</Link>
                 {userEvents.map(event => {
                     return (
                         <div key={event._id} >
